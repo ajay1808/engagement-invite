@@ -9,16 +9,20 @@ Replace `3.PNG` with your new image and keep the same name. Any size or shape wo
 - **On GitHub:** open the repo, click **Add file → Upload files**, drop in the new `3.PNG`, then click **Commit changes**. The live site updates in about a minute.
 - A JPG is fine too. Name it `3.jpg` and delete the old `3.PNG`. A JPG loads faster on phones.
 
-## Optional buttons under the last page
+## Directions and RSVP buttons (under the last page)
 
-Near the bottom of `index.html`, paste links into `BUTTONS`:
+Near the bottom of `index.html`, in `BUTTONS`:
 
 ```js
-{ label: 'Directions', icon: 'pin',  url: 'https://maps.app.goo.gl/…' },
-{ label: 'RSVP',       icon: 'chat', url: 'https://wa.me/91XXXXXXXXXX?text=Count%20me%20in!' },
+{ label: 'Directions', icon: 'pin',   url: 'https://maps.app.goo.gl/g7oSCpVAiHDaX7pBA' },
+{ label: 'RSVP',       icon: 'check', url: '' },  // ← paste the Google Form link between the quotes
 ```
 
-A button with an empty `url` stays hidden.
+While a button's `url` is empty, it shows as a dimmed placeholder. Tapping it says the link is coming soon. To remove a button completely, delete its line.
+
+## Border
+
+`border.png` is drawn on top of every page, so it stays when you replace a picture. Keep replacement pictures at the same size (1122 × 1402) so the border lines up.
 
 ## WhatsApp link preview
 
@@ -35,4 +39,5 @@ A button with an empty `url` stays hidden.
 | `1.jpg` | Second page (optimized from the original 1.png) |
 | `2.jpg` | Third page (optimized from the original 2-Updated.PNG) |
 | `3.PNG` | Event details page. Replace this one |
+| `border.png` | Decorative border shown over every page |
 | `og-image.jpg` | WhatsApp/iMessage preview image |

@@ -89,6 +89,7 @@
     position: relative;
     height: 100%;
     overflow: hidden;
+    overflow: clip;
     scroll-snap-align: start;
     scroll-snap-stop: always;
     display: flex;
@@ -134,8 +135,6 @@
     width: min(100%, calc((100vh - var(--pad-top) - var(--pad-bottom) - var(--extra)) * var(--ar)));
     width: min(100%, calc((100dvh - var(--pad-top) - var(--pad-bottom) - env(safe-area-inset-top) - env(safe-area-inset-bottom) - var(--extra)) * var(--ar)));
     border-radius: var(--radius);
-    outline: 1px solid var(--gold-soft);
-    outline-offset: 6px;
     box-shadow: 0 40px 90px -30px rgba(0, 0, 0, .85), 0 14px 32px -14px rgba(0, 0, 0, .6);
   }
   .slide.has-actions .frame { --extra: 64px; }
@@ -143,6 +142,7 @@
     position: absolute;
     inset: 0;
     overflow: hidden;
+    overflow: clip;
     border-radius: inherit;
     background: var(--maroon-800);
     transform: translateZ(0);
@@ -165,7 +165,13 @@
     user-select: none;
     -webkit-user-select: none;
   }
-  .slide:first-child .media img {
+  /* Decorative border drawn over every painting (stays put when a painting is replaced) */
+  .media .border {
+    z-index: 1;
+    object-fit: fill;
+    pointer-events: none;
+  }
+  .slide:first-child .media .art {
     transform-origin: 50% 62%;
     animation: drift 22s ease-in-out infinite alternate;
   }
@@ -186,7 +192,7 @@
   }
   .js .actions { opacity: 0; transform: translateY(12px); transition: opacity .9s ease .35s, transform 1s var(--ease-out) .35s; }
   .js .slide.seen .actions { opacity: 1; transform: none; }
-  .actions a {
+  .actions a, .actions button {
     display: inline-flex;
     align-items: center;
     gap: 9px;
@@ -203,9 +209,31 @@
     letter-spacing: .1em;
     text-transform: uppercase;
     transition: background .3s, border-color .3s, transform .2s;
+    cursor: pointer;
   }
+  .actions .soon { opacity: .6; cursor: default; }
   .actions a:hover { background: rgba(227, 194, 126, .16); border-color: var(--gold); }
   .actions a:active { transform: scale(.97); }
+  .toast {
+    position: fixed;
+    z-index: 6;
+    left: 50%;
+    bottom: calc(64px + env(safe-area-inset-bottom));
+    transform: translate(-50%, 10px);
+    padding: 11px 20px;
+    border-radius: 99px;
+    border: 1px solid rgba(227, 194, 126, .4);
+    background: rgba(28, 5, 5, .78);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    color: var(--ivory);
+    font: italic 500 18px/1.2 'Cormorant Garamond', Georgia, serif;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .4s ease, transform .5s var(--ease-out);
+  }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
   .actions svg { width: 17px; height: 17px; color: var(--gold); flex: none; }
 
   /* ───── Falling petals (between the blurred backdrop and the artwork) ───── */
@@ -337,7 +365,7 @@
 
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .25s !important; }
-    .slide:first-child .media img { animation: none; }
+    .slide:first-child .media .art { animation: none; }
     .js .frame, .js .actions { transform: none; }
   }
 </style>
@@ -365,9 +393,10 @@
     <div class="ambient" style="--bg:url('0.jpg')"></div>
     <figure class="frame">
       <div class="media">
-        <img src="0.jpg" data-fallback="0.png 0.PNG 0.jpeg 0.JPG" onerror="nextSrc(this)"
+        <img class="art" src="0.jpg" data-fallback="0.png 0.PNG 0.jpeg 0.JPG" onerror="nextSrc(this)"
              alt="Invitation cover: a painting of a Ganesha shrine with brass lamps, banana leaves, hanging garlands and a kolam"
              fetchpriority="high" draggable="false">
+        <img class="border" src="border.png" alt="" aria-hidden="true" draggable="false">
       </div>
     </figure>
   </section>
@@ -377,9 +406,10 @@
     <div class="ambient" style="--bg:url('1.jpg')"></div>
     <figure class="frame">
       <div class="media">
-        <img src="1.jpg" data-fallback="1.png 1.PNG 1.jpeg 1.JPG" onerror="nextSrc(this)"
+        <img class="art" src="1.jpg" data-fallback="1.png 1.PNG 1.jpeg 1.JPG" onerror="nextSrc(this)"
              alt="A painting of a festive home corner with a red post box, brass vessels and a rocking chair"
              draggable="false">
+        <img class="border" src="border.png" alt="" aria-hidden="true" draggable="false">
       </div>
     </figure>
   </section>
@@ -389,9 +419,10 @@
     <div class="ambient" style="--bg:url('2.jpg')"></div>
     <figure class="frame">
       <div class="media">
-        <img src="2.jpg" data-fallback="2.png 2.PNG 2.jpeg 2.JPG" onerror="nextSrc(this)"
+        <img class="art" src="2.jpg" data-fallback="2.png 2.PNG 2.jpeg 2.JPG" onerror="nextSrc(this)"
              alt="A painting of a courtyard where a golden mirror reflects a ring being placed on a finger"
              draggable="false">
+        <img class="border" src="border.png" alt="" aria-hidden="true" draggable="false">
       </div>
     </figure>
   </section>
@@ -401,8 +432,9 @@
     <div class="ambient"></div>
     <figure class="frame">
       <div class="media">
-        <img src="3.PNG" data-fallback="3.png 3.jpg 3.jpeg 3.JPG 3.JPEG 3.webp 3.WEBP" onerror="nextSrc(this)"
+        <img class="art" src="3.PNG" data-fallback="3.png 3.jpg 3.jpeg 3.JPG 3.JPEG 3.webp 3.WEBP" onerror="nextSrc(this)"
              alt="Engagement details" fetchpriority="low" draggable="false">
+        <img class="border" src="border.png" alt="" aria-hidden="true" draggable="false">
       </div>
     </figure>
     <div class="actions" hidden></div>
@@ -426,12 +458,13 @@
 
 <script>
 /* ─────────────────────────────────────────────────────────────
-   OPTIONAL: buttons shown under the last page.
-   Paste a link into "url" to show that button; leave it '' to hide it.
+   Buttons shown under the last page.
+   A button with an empty url shows as a dimmed "coming soon" placeholder.
+   Delete a line to remove that button completely.
    ───────────────────────────────────────────────────────────── */
 const BUTTONS = [
-  { label: 'Directions', icon: 'pin',  url: '' },  // e.g. a Google Maps share link
-  { label: 'RSVP',       icon: 'chat', url: '' },  // e.g. https://wa.me/91XXXXXXXXXX?text=Count%20me%20in!
+  { label: 'Directions', icon: 'pin',   url: 'https://maps.app.goo.gl/g7oSCpVAiHDaX7pBA' },
+  { label: 'RSVP',       icon: 'check', url: '' },  // ← paste the Google Form link between the quotes
 ];
 
 (() => {
@@ -451,7 +484,7 @@ const BUTTONS = [
     const src = (img.currentSrc || img.src).replace(/'/g, '%27');
     img.closest('.slide').querySelector('.ambient').style.setProperty('--bg', `url('${src}')`);
   };
-  document.querySelectorAll('.media img').forEach(img => {
+  document.querySelectorAll('.media .art').forEach(img => {
     if (img.complete) fit(img);
     img.addEventListener('load', () => fit(img));
   });
@@ -460,14 +493,38 @@ const BUTTONS = [
   const ICONS = {
     pin:  '<path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>',
     chat: '<path d="M4 19.5l1.3-3.9A8 8 0 1 1 8.4 18.7z"/>',
+    check: '<circle cx="12" cy="12" r="9"/><path d="M8 12.4l2.8 2.8L16.2 9.8"/>',
     link: '<path d="M7 17L17 7M9 7h8v8"/>',
   };
   const actions = document.querySelector('.actions');
-  BUTTONS.filter(b => b.url).forEach(b => {
-    const a = document.createElement('a');
-    a.href = b.url;
-    a.target = '_blank';
-    a.rel = 'noopener';
+  let toastTimer = 0;
+  const toast = msg => {
+    let t = document.querySelector('.toast');
+    if (!t) {
+      t = document.createElement('div');
+      t.className = 'toast';
+      t.setAttribute('role', 'status');
+      document.body.append(t);
+    }
+    t.textContent = msg;
+    requestAnimationFrame(() => t.classList.add('show'));
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 2400);
+  };
+  BUTTONS.forEach(b => {
+    let a;
+    if (b.url) {
+      a = document.createElement('a');
+      a.href = b.url;
+      a.target = '_blank';
+      a.rel = 'noopener';
+    } else {
+      a = document.createElement('button');
+      a.type = 'button';
+      a.className = 'soon';
+      a.setAttribute('aria-disabled', 'true');
+      a.addEventListener('click', () => toast(`${b.label} link coming soon`));
+    }
     a.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[b.icon] || ICONS.link}</svg>`;
     a.append(b.label);
     actions.append(a);
@@ -522,7 +579,7 @@ const BUTTONS = [
   });
 
   /* Opening: show the curtain until page 1 is ready, then reveal */
-  const first = slides[0].querySelector('img');
+  const first = slides[0].querySelector('.art');
   const firstReady = new Promise(res => {
     if (first.complete && first.naturalWidth) return res();
     first.addEventListener('load', res, { once: true });
