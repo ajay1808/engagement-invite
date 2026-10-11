@@ -32,6 +32,6 @@ A button with an empty `url` stays hidden.
 |---|---|
 | `index.html` | The page |
 | `1.jpg` | Page 1 (optimized from the original 1.png) |
-| `2.mp4`, `2-poster.jpg` | Page 2 video (compressed from 10.8 MB to 2.6 MB) and its first frame |
+| `2.mp4`, `2-poster.jpg` | Page 2 video (a seamless loop, compressed from 10.8 MB to 2.2 MB) and its first frame |
 | `3.PNG` | Page 3. Replace this one |
 | `og-image.jpg` | WhatsApp/iMessage preview image |

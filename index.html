@@ -174,29 +174,7 @@
   .js .frame { opacity: 0; transform: translateY(28px) scale(.98); transition: opacity 1.1s ease, transform 1.4s var(--ease-out); }
   .js .slide.seen .frame { opacity: 1; transform: none; }
 
-  /* ───── Video controls ───── */
-  .chip {
-    position: absolute;
-    z-index: 3;
-    right: 12px;
-    bottom: 12px;
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    padding: 9px 15px 9px 12px;
-    border-radius: 99px;
-    border: 1px solid rgba(255, 230, 180, .35);
-    background: rgba(30, 6, 6, .45);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    color: var(--ivory);
-    font: 600 13px/1 'Cormorant Garamond', Georgia, serif;
-    letter-spacing: .16em;
-    text-transform: uppercase;
-    cursor: pointer;
-    animation: rise .6s var(--ease-out);
-  }
-  .chip svg { width: 15px; height: 15px; color: var(--gold); }
+  /* ───── Play button (only shown if the phone blocks autoplay, e.g. iPhone Low Power Mode) ───── */
   .play {
     position: absolute;
     z-index: 3;
@@ -419,14 +397,10 @@
     <div class="ambient" style="--bg:url('2-poster.jpg')"></div>
     <figure class="frame">
       <div class="media">
-        <video src="2.mp4" poster="2-poster.jpg" muted playsinline preload="none"
+        <video src="2.mp4" poster="2-poster.jpg" muted loop playsinline preload="none"
                disablepictureinpicture disableremoteplayback
                aria-label="Animated painting: a ring being placed on a finger, reflected in a golden mirror"></video>
       </div>
-      <button class="chip replay" type="button" hidden>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>
-        Replay
-      </button>
       <button class="play" type="button" aria-label="Play" hidden>
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.5-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg>
       </button>
@@ -513,22 +487,17 @@ const BUTTONS = [
     actions.closest('.slide').classList.add('has-actions');
   }
 
-  /* Video: plays when its page is in view, holds on the last frame, replays on return */
+  /* Video: loops seamlessly while its page is in view, pauses when you scroll away */
   const video = deck.querySelector('video');
-  const replayBtn = deck.querySelector('.replay');
   const playBtn = deck.querySelector('.play');
   video.muted = true;
-  const playFromStart = () => {
-    replayBtn.hidden = true;
+  const playVideo = () => {
     playBtn.hidden = true;
-    try { video.currentTime = 0; } catch (e) {}
     const p = video.play();
     if (p) p.catch(() => { if (video.paused) playBtn.hidden = false; });
   };
-  video.addEventListener('ended', () => { replayBtn.hidden = false; });
-  replayBtn.addEventListener('click', playFromStart);
-  playBtn.addEventListener('click', playFromStart);
-  video.addEventListener('click', () => { if (video.ended || video.paused) playFromStart(); });
+  playBtn.addEventListener('click', playVideo);
+  video.addEventListener('click', () => { if (video.paused) playVideo(); });
   const videoIndex = slides.findIndex(s => s.contains(video));
 
   /* Page tracking */
@@ -537,7 +506,7 @@ const BUTTONS = [
     dots.forEach((d, j) => d.setAttribute('aria-current', j === i ? 'true' : 'false'));
     hint.classList.toggle('away', i === slides.length - 1);
     slides[i].classList.add('seen');
-    if (i === videoIndex) playFromStart();
+    if (i === videoIndex) playVideo();
     else if (!video.paused) video.pause();
   };
   const io = new IntersectionObserver(entries => {
@@ -578,7 +547,7 @@ const BUTTONS = [
   });
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) video.pause();
-    else if (current === videoIndex && !video.ended && video.currentTime > 0) video.play().catch(() => {});
+    else if (ready && current === videoIndex) playVideo();
   });
 
   /* Opening: show the curtain until page 1 is ready, then reveal */
