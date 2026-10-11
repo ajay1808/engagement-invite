@@ -22,7 +22,7 @@ While a button's `url` is empty, it shows as a dimmed placeholder. Tapping it sa
 
 ## Border
 
-`border.png` is drawn on top of every page, so it stays when you replace a picture. Keep replacement pictures at the same size (1122 × 1402) so the border lines up.
+`border.png` is drawn on top of every page, with its main line running along the picture's edges, so it stays when you replace a picture. Keep replacement pictures at the same size (1122 × 1402) so the border lines up exactly.
 
 ## WhatsApp link preview
 
