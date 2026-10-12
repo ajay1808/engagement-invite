@@ -1,6 +1,6 @@
 # Engagement Invite
 
-A four-page scrolling invitation: Ganesha cover → home corner → courtyard → event details.
+Opens on a "You're invited" screen with the logo, then scrolls through three pages: Ganesha cover → courtyard → event details.
 
 ## Update the details page (the last page, 3.PNG)
 
@@ -8,6 +8,10 @@ Replace `3.PNG` with your new image and keep the same name. Any size or shape wo
 
 - **On GitHub:** open the repo, click **Add file → Upload files**, drop in the new `3.PNG`, then click **Commit changes**. The live site updates in about a minute.
 - A JPG is fine too. Name it `3.jpg` and delete the old `3.PNG`. A JPG loads faster on phones.
+
+## Change the logo
+
+Replace `logo.png` with the new logo and keep the same name. A PNG with a transparent background looks best on the dark opening screen. If the logo file is missing, the opening screen simply shows "You're invited" without it.
 
 ## Directions and RSVP buttons (under the last page)
 
@@ -26,7 +30,7 @@ While a button's `url` is empty, it shows as a dimmed placeholder. Tapping it sa
 
 ## WhatsApp link preview
 
-- The preview picture is `og-image.jpg`, a crop of `1.png`.
+- The preview picture is `og-image.jpg`, a crop of the Ganesha cover (`0.PNG`).
 - The title and description are the `og:title` and `og:description` lines at the top of `index.html`.
 - WhatsApp caches a link's preview. Send the link to yourself once to check it before sending it to guests.
 
@@ -36,8 +40,8 @@ While a button's `url` is empty, it shows as a dimmed placeholder. Tapping it sa
 |---|---|
 | `index.html` | The page |
 | `0.jpg` | Cover page (optimized from the original 0.PNG) |
-| `1.jpg` | Second page (optimized from the original 1.png) |
-| `2.jpg` | Third page (optimized from the original 2-Updated.PNG) |
+| `2.jpg` | Second page (optimized from the original 2-Updated.PNG) |
 | `3.PNG` | Event details page. Replace this one |
+| `logo.png` | Logo on the opening screen. Replace this one to change it |
 | `border.png` | Decorative border shown over every page |
 | `og-image.jpg` | WhatsApp/iMessage preview image |
