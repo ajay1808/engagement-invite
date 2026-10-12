@@ -2,6 +2,13 @@
 
 Opens on a "You're invited" screen with the logo, then scrolls through three pages: Ganesha cover → courtyard → event details.
 
+## Preview versions (being compared)
+
+- `v2/` – opening "You're invited" page with `logo.png`, then the three pages
+- `v3/` – the same with `logo2.png`
+
+Both use the same pictures as the main page. Once one is chosen, it replaces the main `index.html` and these folders are removed.
+
 ## Update the details page (the last page, 3.PNG)
 
 Replace `3.PNG` with your new image and keep the same name. Any size or shape works, and the page adjusts to fit it.
@@ -43,5 +50,6 @@ While a button's `url` is empty, it shows as a dimmed placeholder. Tapping it sa
 | `2.jpg` | Second page (optimized from the original 2-Updated.PNG) |
 | `3.PNG` | Event details page. Replace this one |
 | `logo.png` | Logo on the opening screen. Replace this one to change it |
+| `logo2.png` | Alternative logo, used by the `v3/` preview |
 | `border.png` | Decorative border shown over every page |
 | `og-image.jpg` | WhatsApp/iMessage preview image |
