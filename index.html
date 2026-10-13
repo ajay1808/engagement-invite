@@ -689,6 +689,10 @@ const MUSIC = {
   };
   const firstTapEvents = ['click', 'touchend', 'keydown'];
   music.addEventListener('playing', () => firstTapEvents.forEach(t => document.removeEventListener(t, onFirstTap, true)), { once: true });
+  // begin at the chosen start point (the #t= in the file link isn't honoured everywhere)
+  const toStart = () => { if (music.currentTime < MUSIC.start - 0.5) music.currentTime = MUSIC.start; };
+  music.addEventListener('loadedmetadata', toStart);
+  music.addEventListener('playing', toStart, { once: true });
   // loop back to the chosen start point rather than the very beginning
   music.addEventListener('ended', () => {
     music.currentTime = MUSIC.start;
