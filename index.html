@@ -706,14 +706,31 @@ const MUSIC = {
     if (wantMusic) playMusic(); else { music.pause(); setPlaying(false); }
     try { localStorage.setItem('invite-music', wantMusic ? 'on' : 'off'); } catch (e) {}
   });
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) {
-      if (!music.paused) { music.pause(); music.dataset.resume = '1'; }
-    } else if (music.dataset.resume) {
-      delete music.dataset.resume;
-      music.play().catch(() => setPlaying(false));
-    }
-  });
+  // Only play while the invite is actually being viewed. Pause when the guest switches to another
+  // app or tab, locks the phone, leaves the page, or (on a computer) moves to another window;
+  // pick up again when they come back, if it was playing.
+  const away = () => {
+    if (!music.paused) { music.pause(); music.dataset.resume = '1'; }
+  };
+  const back = () => {
+    if (!music.dataset.resume || document.hidden) return;
+    delete music.dataset.resume;
+    music.play().catch(() => setPlaying(false));
+  };
+  document.addEventListener('visibilitychange', () => (document.hidden ? away() : back()));
+  addEventListener('blur', away);
+  addEventListener('pagehide', away);
+  addEventListener('focus', back);
+  // Never start in the background (e.g. from lock-screen or notification media controls)
+  music.addEventListener('play', () => { if (document.hidden) away(); });
+  if ('mediaSession' in navigator) {
+    try {
+      navigator.mediaSession.setActionHandler('play', () => { if (!document.hidden) { wantMusic = true; playMusic(); } });
+      navigator.mediaSession.setActionHandler('pause', () => {
+        if (document.hidden) away(); else { music.pause(); setPlaying(false); }
+      });
+    } catch (e) {}
+  }
   // Only show the button (and the credit) once the music file is actually there
   fetch(MUSIC.src, { method: 'HEAD' }).then(r => {
     if (!r.ok) return;
