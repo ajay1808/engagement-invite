@@ -27,6 +27,19 @@ While a button's `url` is empty, it shows as a dimmed placeholder. Tapping it sa
 
 `border.png` is drawn on top of every page, with its main line running along the picture's edges, so it stays when you replace a picture. Keep replacement pictures at a 4:5 shape so the border lines up exactly.
 
+## Offline PDF ("Save invite as PDF")
+
+`invite.pdf` is the downloadable copy linked under the buttons on the last page: the "You're invited" page, the three pictures, and a details page with the full Sai Villa address, a tappable Google Maps button and a QR code for directions.
+
+It is built from files in the `pdf-build` folder next to this one, so **rebuild it after changing any picture or the logo**, then upload the new `invite.pdf`:
+
+```
+cd "Engagement Invite"
+swiftc -O pdf-build/make_pdf.swift -o pdf-build/make_pdf && pdf-build/make_pdf
+```
+
+The details page text (date, time, address) is in `pdf-build/invite-pdf.html`.
+
 ## WhatsApp link preview
 
 - The preview picture is `og-image.jpg`, a crop of the Ganesha painting.
@@ -42,5 +55,6 @@ While a button's `url` is empty, it shows as a dimmed placeholder. Tapping it sa
 | `2.jpg` | Names and date, courtyard (from 2-final.webp) |
 | `3.jpg` | Venue and time (from 3-final.webp) |
 | `logo.png` | Logo on the opening page. Replace this one to change it |
+| `invite.pdf` | Downloadable offline copy of the invite (see above) |
 | `border.png` | Decorative border shown over every page |
 | `og-image.jpg` | WhatsApp/iMessage preview image |

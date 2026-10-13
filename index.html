@@ -136,6 +136,8 @@
     width: min(100%, calc((100dvh - var(--pad-top) - var(--pad-bottom) - env(safe-area-inset-top) - env(safe-area-inset-bottom) - var(--extra)) * var(--far)));
   }
   .slide.has-actions .frame { --extra: 64px; }
+  .slide.has-save .frame { --extra: 40px; }
+  .slide.has-save.has-actions .frame { --extra: 100px; }
   .media {
     position: absolute;
     /* where the border's main line runs, as a share of border.png's size */
@@ -235,6 +237,27 @@
   }
   .toast.show { opacity: 1; transform: translate(-50%, 0); }
   .actions svg { width: 17px; height: 17px; color: var(--gold); flex: none; }
+
+  /* "Save invite as PDF" link under the buttons */
+  .save-pdf {
+    position: relative;
+    z-index: 2;
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: -6px;
+    padding: 6px 10px;
+    color: rgba(248, 238, 220, .88);
+    text-decoration: none;
+    font: italic 500 17px/1.2 'Cormorant Garamond', Georgia, serif;
+    letter-spacing: .02em;
+  }
+  .save-pdf svg { width: 16px; height: 16px; color: var(--gold); flex: none; }
+  .save-pdf span { border-bottom: 1px solid rgba(227, 194, 126, .45); padding-bottom: 1px; transition: border-color .3s; }
+  .save-pdf:hover span { border-color: var(--gold); }
+  .js .save-pdf { opacity: 0; transition: opacity .9s ease .55s; }
+  .js .slide.seen .save-pdf { opacity: 1; }
 
   /* ───── Falling petals (between the blurred backdrop and the artwork) ───── */
   .petals {
@@ -410,7 +433,7 @@
   </section>
 
   <!-- Page 3 (event details) — replace 3.jpg to update this page -->
-  <section class="slide" aria-label="Invitation, page 4 of 4">
+  <section class="slide has-save" aria-label="Invitation, page 4 of 4">
     <div class="ambient"></div>
     <figure class="frame">
       <div class="media">
@@ -420,6 +443,11 @@
       <img class="border" src="border.png" alt="" aria-hidden="true" draggable="false">
     </figure>
     <div class="actions" hidden></div>
+    <!-- Offline copy: all pages plus the full address. Rebuild with pdf-build/make_pdf after changing pictures. -->
+    <a class="save-pdf" href="invite.pdf" download="Shreya-Ajay-Nichayathartham.pdf" type="application/pdf">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="M7 10.5l5 5 5-5"/><path d="M5 20h14"/></svg>
+      <span>Save invite as PDF</span>
+    </a>
   </section>
 
 </main>
