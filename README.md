@@ -1,10 +1,10 @@
 # Engagement Invite
 
-Opens on a "You're invited" page with the logo, then scrolls through three pages: blessings (Ganesha) → names and date (courtyard) → venue and time.
+Opens on a "You're invited" page with the logo, then scrolls through three pages: blessings (Ganesha) → Nichayathartham, Shreya & Ajay (courtyard) → date, time and venue.
 
 ## Update a page
 
-Replace `0.jpg`, `2.jpg` or `3.jpg` with the new picture and keep the same name. Keep pictures at a 4:5 shape (for example 1200 × 1500) so the border lines up.
+Replace `1.jpg`, `2.jpg` or `3.jpg` with the new picture and keep the same name. Keep pictures at a 4:5 shape (for example 1200 × 1500) so the border lines up.
 
 - **On GitHub:** open the repo, click **Add file → Upload files**, drop in the new file, then click **Commit changes**. The live site updates in about a minute.
 
@@ -21,7 +21,11 @@ Near the bottom of `index.html`, in `BUTTONS`:
 { label: 'RSVP',       icon: 'check', url: '' },  // ← paste the Google Form link between the quotes
 ```
 
-While a button's `url` is empty, it shows as a dimmed placeholder. Tapping it says the link is coming soon. To remove a button completely, delete its line.
+RSVP goes to the Google Form (https://forms.gle/tU1bEZkjQRunACQm6). While a button's `url` is empty, it shows as a dimmed "coming soon" placeholder. To remove a button completely, delete its line.
+
+## Background music
+
+Put the track in this folder as `music.mp3`. The speaker button (top right) and the credit line on the last page appear automatically once the file is there. Music starts on the guest's first tap (browsers don't allow sound before that) and the speaker button turns it on or off. Settings are in `MUSIC` near the bottom of `index.html`: `start` is where the track begins and loops back to (currently 8 seconds), and `credit` is the credit line. The current track, "Bhakthinamam" by Bank Of Sounds NCS, is free to use with credit.
 
 ## Border
 
@@ -29,7 +33,7 @@ While a button's `url` is empty, it shows as a dimmed placeholder. Tapping it sa
 
 ## Offline PDF ("Save invite as PDF")
 
-`invite.pdf` is the downloadable copy linked under the buttons on the last page: the "You're invited" page, the three pictures, and a details page with the full Sai Villa address, a tappable Google Maps button and a QR code for directions.
+`invite.pdf` is the downloadable copy linked under the buttons on the last page: a logo cover, the three pictures, and a details page with the full Sai Villa address and a tappable Directions button.
 
 It is built from files in the `pdf-build` folder next to this one, so **rebuild it after changing any picture or the logo**, then upload the new `invite.pdf`:
 
@@ -51,10 +55,11 @@ The details page text (date, time, address) is in `pdf-build/invite-pdf.html`.
 | File | What it is |
 |---|---|
 | `index.html` | The page |
-| `0.jpg` | Blessings page with Ganesha (from 0-final.webp) |
-| `2.jpg` | Names and date, courtyard (from 2-final.webp) |
-| `3.jpg` | Venue and time (from 3-final.webp) |
+| `1.jpg` | Blessings page with Ganesha (from `source/pages/1.png`) |
+| `2.jpg` | Nichayathartham, Shreya & Ajay (from `source/pages/2.png`) |
+| `3.jpg` | Date, time and venue (from `source/pages/3.png`) |
 | `logo.png` | Logo on the opening page. Replace this one to change it |
+| `music.mp3` | Background music (see above) |
 | `invite.pdf` | Downloadable offline copy of the invite (see above) |
 | `border.png` | Decorative border shown over every page |
 | `og-image.jpg` | WhatsApp/iMessage preview image |

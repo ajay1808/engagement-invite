@@ -31,7 +31,7 @@
 
 <script>
   document.documentElement.classList.add('js');
-  // If a file is missing, try the next name in data-fallback (e.g. 3.PNG → 3.png → 3.jpg …)
+  // If a file is missing, try the next name in data-fallback (e.g. 3.jpg → 3.JPG → 3.png …)
   function nextSrc(img) {
     var list = (img.dataset.fallback || '').split(/\s+/).filter(Boolean);
     if (!list.length) { if ('optional' in img.dataset) img.hidden = true; return; }
@@ -138,6 +138,7 @@
   .slide.has-actions .frame { --extra: 64px; }
   .slide.has-save .frame { --extra: 40px; }
   .slide.has-save.has-actions .frame { --extra: 100px; }
+  .slide.has-save.has-actions.has-credit .frame { --extra: 116px; }
   .media {
     position: absolute;
     /* where the border's main line runs, as a share of border.png's size */
@@ -258,6 +259,57 @@
   .save-pdf:hover span { border-color: var(--gold); }
   .js .save-pdf { opacity: 0; transition: opacity .9s ease .55s; }
   .js .slide.seen .save-pdf { opacity: 1; }
+
+  /* Music credit, under "Save invite as PDF" */
+  .credit {
+    position: relative;
+    z-index: 2;
+    flex: none;
+    margin-top: -14px;
+    font: italic 500 13px/1.3 'Cormorant Garamond', Georgia, serif;
+    color: rgba(248, 238, 220, .55);
+    text-decoration: none;
+  }
+  .credit:hover { color: rgba(248, 238, 220, .85); }
+  .js .credit { opacity: 0; transition: opacity .9s ease .7s; }
+  .js .slide.seen .credit { opacity: 1; }
+
+  /* ───── Music on/off, top right ───── */
+  .sound {
+    position: fixed;
+    z-index: 6;
+    top: calc(14px + env(safe-area-inset-top));
+    right: calc(14px + env(safe-area-inset-right));
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(227, 194, 126, .45);
+    background: rgba(28, 5, 5, .45);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    color: var(--gold);
+    cursor: pointer;
+    transition: border-color .3s, transform .2s;
+  }
+  .sound:hover { border-color: var(--gold); }
+  .sound:active { transform: scale(.94); }
+  .sound svg { grid-area: 1 / 1; width: 21px; height: 21px; }
+  .sound .on, .sound[aria-pressed="true"] .off { display: none; }
+  .sound[aria-pressed="true"] .on { display: block; }
+  /* a soft ring invites the first tap, until the music has played once */
+  .sound.invite::after {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: 50%;
+    border: 1px solid var(--gold);
+    pointer-events: none;
+    animation: ring 2.4s ease-out infinite;
+  }
+  @keyframes ring { from { transform: scale(1); opacity: .7; } to { transform: scale(1.6); opacity: 0; } }
 
   /* ───── Falling petals (between the blurred backdrop and the artwork) ───── */
   .petals {
@@ -406,12 +458,12 @@
     </div>
   </section>
 
-  <!-- Page 0 (cover) -->
+  <!-- Page 1 (blessings) -->
   <section class="slide cover" aria-label="Invitation, page 2 of 4">
-    <div class="ambient" style="--bg:url('0.jpg')"></div>
+    <div class="ambient" style="--bg:url('1.jpg')"></div>
     <figure class="frame">
       <div class="media">
-        <img class="art" src="0.jpg" data-fallback="0.png 0.PNG 0.jpeg 0.JPG" onerror="nextSrc(this)"
+        <img class="art" src="1.jpg" data-fallback="1.JPG 1.jpeg 1.png 1.PNG" onerror="nextSrc(this)"
              alt="Sri Rama Jayam. With the blessings of our families, Sujatha &amp; Rangaraj and Deepa Kasturirangan warmly invite you to celebrate a beautiful new beginning with us."
              draggable="false">
       </div>
@@ -419,26 +471,26 @@
     </figure>
   </section>
 
-  <!-- Page 2 -->
+  <!-- Page 2 (Nichayathartham, names) -->
   <section class="slide" aria-label="Invitation, page 3 of 4">
     <div class="ambient" style="--bg:url('2.jpg')"></div>
     <figure class="frame">
       <div class="media">
-        <img class="art" src="2.jpg" data-fallback="2.png 2.PNG 2.jpeg 2.JPG" onerror="nextSrc(this)"
-             alt="Nichayathartham. Shreya &amp; Ajay. 13.12.2026"
+        <img class="art" src="2.jpg" data-fallback="2.JPG 2.jpeg 2.png 2.PNG" onerror="nextSrc(this)"
+             alt="Nichayathartham. Shreya &amp; Ajay."
              draggable="false">
       </div>
       <img class="border" src="border.png" alt="" aria-hidden="true" draggable="false">
     </figure>
   </section>
 
-  <!-- Page 3 (event details) — replace 3.jpg to update this page -->
+  <!-- Page 3 (date, time and venue) -->
   <section class="slide has-save" aria-label="Invitation, page 4 of 4">
     <div class="ambient"></div>
     <figure class="frame">
       <div class="media">
         <img class="art" src="3.jpg" data-fallback="3.JPG 3.jpeg 3.png 3.PNG 3.webp" onerror="nextSrc(this)"
-             alt="Join us in celebrating this beautiful beginning, and bless the journey ahead. Sai Villa, Neelankarai, Chennai. 8:00 AM onwards, followed by lunch." fetchpriority="low" draggable="false">
+             alt="Join us in celebrating this beautiful beginning, and bless the journey ahead. Sunday, 13th December 2026, 8:00 AM onwards. Sai Villa, Neelankarai, Chennai. Followed by lunch." fetchpriority="low" draggable="false">
       </div>
       <img class="border" src="border.png" alt="" aria-hidden="true" draggable="false">
     </figure>
@@ -448,6 +500,7 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="M7 10.5l5 5 5-5"/><path d="M5 20h14"/></svg>
       <span>Save invite as PDF</span>
     </a>
+    <a class="credit" target="_blank" rel="noopener" hidden></a>
   </section>
 
 </main>
@@ -460,6 +513,13 @@
   <button type="button" aria-label="Page 3"></button>
   <button type="button" aria-label="Page 4"></button>
 </nav>
+
+<!-- Music on/off -->
+<audio id="music" preload="none"></audio>
+<button class="sound" type="button" aria-label="Play music" aria-pressed="false" hidden>
+  <svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 9.5H7L11.5 6v12L7 14.5H3.5z"/><path d="M15.5 9.5l5 5M20.5 9.5l-5 5"/></svg>
+  <svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 9.5H7L11.5 6v12L7 14.5H3.5z"/><path d="M15 9.2a4 4 0 0 1 0 5.6"/><path d="M17.8 6.6a7.6 7.6 0 0 1 0 10.8"/></svg>
+</button>
 
 <button class="hint away" type="button" aria-label="Next page">
   Scroll
@@ -474,8 +534,17 @@
    ───────────────────────────────────────────────────────────── */
 const BUTTONS = [
   { label: 'Directions', icon: 'pin',   url: 'https://maps.app.goo.gl/g7oSCpVAiHDaX7pBA' },
-  { label: 'RSVP',       icon: 'check', url: '' },  // ← paste the Google Form link between the quotes
+  { label: 'RSVP',       icon: 'check', url: 'https://forms.gle/tU1bEZkjQRunACQm6' },
 ];
+
+/* Background music: put the audio file in this folder as music.mp3 to switch it on.
+   Until the file exists, the speaker button and the credit line stay hidden. */
+const MUSIC = {
+  src: 'music.mp3',
+  start: 8,          // seconds into the track to begin (and to loop back to)
+  credit: 'Music: “Bhakthinamam” by Bank Of Sounds NCS',
+  creditUrl: 'https://youtu.be/s0z1l1u3zBI',
+};
 
 (() => {
   const deck = document.getElementById('deck');
@@ -587,6 +656,72 @@ const BUTTONS = [
     else return;
     e.preventDefault();
   });
+
+  /* Music: browsers only allow sound after the guest interacts, so it starts on their first tap
+     (unless they turned it off before). The speaker button toggles it. */
+  const music = document.getElementById('music');
+  const soundBtn = document.querySelector('.sound');
+  let wantMusic = true;
+  try { wantMusic = localStorage.getItem('invite-music') !== 'off'; } catch (e) {}
+  let fadeTimer = 0;
+  const setPlaying = on => {
+    soundBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    soundBtn.setAttribute('aria-label', on ? 'Turn music off' : 'Play music');
+    if (on) soundBtn.classList.remove('invite');
+  };
+  const playMusic = () => {
+    clearInterval(fadeTimer);
+    music.volume = 0;
+    const p = music.play();
+    if (!p) return;
+    p.then(() => {
+      setPlaying(true);
+      fadeTimer = setInterval(() => {                    // gentle fade-in (iPhones ignore volume, which is fine)
+        music.volume = Math.min(0.7, music.volume + 0.05);
+        if (music.volume >= 0.7) clearInterval(fadeTimer);
+      }, 120);
+    }).catch(() => setPlaying(false));
+  };
+  const onFirstTap = e => {
+    if (e.target.closest && e.target.closest('.sound')) return;
+    if (!wantMusic || !music.paused) return;
+    playMusic();
+  };
+  const firstTapEvents = ['click', 'touchend', 'keydown'];
+  music.addEventListener('playing', () => firstTapEvents.forEach(t => document.removeEventListener(t, onFirstTap, true)), { once: true });
+  // loop back to the chosen start point rather than the very beginning
+  music.addEventListener('ended', () => {
+    music.currentTime = MUSIC.start;
+    music.play().catch(() => setPlaying(false));
+  });
+  soundBtn.addEventListener('click', () => {
+    wantMusic = music.paused;
+    if (wantMusic) playMusic(); else { music.pause(); setPlaying(false); }
+    try { localStorage.setItem('invite-music', wantMusic ? 'on' : 'off'); } catch (e) {}
+  });
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      if (!music.paused) { music.pause(); music.dataset.resume = '1'; }
+    } else if (music.dataset.resume) {
+      delete music.dataset.resume;
+      music.play().catch(() => setPlaying(false));
+    }
+  });
+  // Only show the button (and the credit) once the music file is actually there
+  fetch(MUSIC.src, { method: 'HEAD' }).then(r => {
+    if (!r.ok) return;
+    music.src = `${MUSIC.src}#t=${MUSIC.start}`;     // media fragment: start playback at MUSIC.start
+    soundBtn.hidden = false;
+    if (wantMusic) {
+      soundBtn.classList.add('invite');
+      firstTapEvents.forEach(t => document.addEventListener(t, onFirstTap, true));
+    }
+    const credit = document.querySelector('.credit');
+    credit.textContent = MUSIC.credit;
+    credit.href = MUSIC.creditUrl;
+    credit.hidden = false;
+    credit.closest('.slide').classList.add('has-credit');
+  }).catch(() => {});
 
   /* Opening page: fade the logo in once loaded; tap it to move on */
   const intro = slides[0];
