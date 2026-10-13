@@ -1,24 +1,16 @@
 # Engagement Invite
 
-Opens on a "You're invited" screen with the logo, then scrolls through three pages: Ganesha cover → courtyard → event details.
+Opens on a "You're invited" page with the logo, then scrolls through three pages: blessings (Ganesha) → names and date (courtyard) → venue and time.
 
-## Preview versions (being compared)
+## Update a page
 
-- `v2/` – opening "You're invited" page with `logo.png`, then the three pages
-- `v3/` – the same with `logo2.png`
+Replace `0.jpg`, `2.jpg` or `3.jpg` with the new picture and keep the same name. Keep pictures at a 4:5 shape (for example 1200 × 1500) so the border lines up.
 
-Both use the same pictures as the main page. Once one is chosen, it replaces the main `index.html` and these folders are removed.
-
-## Update the details page (the last page, 3.PNG)
-
-Replace `3.PNG` with your new image and keep the same name. Any size or shape works, and the page adjusts to fit it.
-
-- **On GitHub:** open the repo, click **Add file → Upload files**, drop in the new `3.PNG`, then click **Commit changes**. The live site updates in about a minute.
-- A JPG is fine too. Name it `3.jpg` and delete the old `3.PNG`. A JPG loads faster on phones.
+- **On GitHub:** open the repo, click **Add file → Upload files**, drop in the new file, then click **Commit changes**. The live site updates in about a minute.
 
 ## Change the logo
 
-Replace `logo.png` with the new logo and keep the same name. A PNG with a transparent background looks best on the dark opening screen. If the logo file is missing, the opening screen simply shows "You're invited" without it.
+Replace `logo.png` with the new logo and keep the same name. A PNG with a transparent background looks best on the dark opening page. If the logo file is missing, the page simply shows "You're invited" without it.
 
 ## Directions and RSVP buttons (under the last page)
 
@@ -33,11 +25,11 @@ While a button's `url` is empty, it shows as a dimmed placeholder. Tapping it sa
 
 ## Border
 
-`border.png` is drawn on top of every page, with its main line running along the picture's edges, so it stays when you replace a picture. Keep replacement pictures at the same size (1122 × 1402) so the border lines up exactly.
+`border.png` is drawn on top of every page, with its main line running along the picture's edges, so it stays when you replace a picture. Keep replacement pictures at a 4:5 shape so the border lines up exactly.
 
 ## WhatsApp link preview
 
-- The preview picture is `og-image.jpg`, a crop of the Ganesha cover (`0.PNG`).
+- The preview picture is `og-image.jpg`, a crop of the Ganesha painting.
 - The title and description are the `og:title` and `og:description` lines at the top of `index.html`.
 - WhatsApp caches a link's preview. Send the link to yourself once to check it before sending it to guests.
 
@@ -46,10 +38,9 @@ While a button's `url` is empty, it shows as a dimmed placeholder. Tapping it sa
 | File | What it is |
 |---|---|
 | `index.html` | The page |
-| `0.jpg` | Cover page (optimized from the original 0.PNG) |
-| `2.jpg` | Second page (optimized from the original 2-Updated.PNG) |
-| `3.PNG` | Event details page. Replace this one |
-| `logo.png` | Logo on the opening screen. Replace this one to change it |
-| `logo2.png` | Alternative logo, used by the `v3/` preview |
+| `0.jpg` | Blessings page with Ganesha (from 0-final.webp) |
+| `2.jpg` | Names and date, courtyard (from 2-final.webp) |
+| `3.jpg` | Venue and time (from 3-final.webp) |
+| `logo.png` | Logo on the opening page. Replace this one to change it |
 | `border.png` | Decorative border shown over every page |
 | `og-image.jpg` | WhatsApp/iMessage preview image |
