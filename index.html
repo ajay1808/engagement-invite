@@ -15,15 +15,15 @@
 <meta property="og:site_name" content="Engagement Invitation">
 <meta property="og:title" content="We seek your gracious presence">
 <meta property="og:description" content="Tap to open the invitation">
-<meta property="og:url" content="https://ajay1808.github.io/engagement-invite/">
-<meta property="og:image" content="https://ajay1808.github.io/engagement-invite/og-image.jpg">
-<meta property="og:image:secure_url" content="https://ajay1808.github.io/engagement-invite/og-image.jpg">
+<meta property="og:url" content="https://shreya-ajay.pages.dev/">
+<meta property="og:image" content="https://shreya-ajay.pages.dev/og-image.jpg">
+<meta property="og:image:secure_url" content="https://shreya-ajay.pages.dev/og-image.jpg">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="A painted Ganesha shrine with brass lamps and jasmine garlands">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://ajay1808.github.io/engagement-invite/og-image.jpg">
+<meta name="twitter:image" content="https://shreya-ajay.pages.dev/og-image.jpg">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -538,9 +538,12 @@ const BUTTONS = [
 ];
 
 /* Background music: put the audio file in this folder as music.mp3 to switch it on.
-   Until the file exists, the speaker button and the credit line stay hidden. */
+   Until the file exists, the speaker button and the credit line stay hidden.
+   It's always played from the GitHub Pages copy: GitHub supports the partial downloads
+   ("range requests") that iPhones need for audio and for starting at 0:08; Cloudflare Pages
+   doesn't. GitHub allows other sites to use it, so this works from shreya-ajay.pages.dev too. */
 const MUSIC = {
-  src: 'music.mp3',
+  src: 'https://ajay1808.github.io/engagement-invite/music.mp3',
   start: 8,          // seconds into the track to begin (and to loop back to)
   credit: 'Music: “Bhakthinamam” by Bank Of Sounds NCS',
   creditUrl: 'https://youtu.be/s0z1l1u3zBI',

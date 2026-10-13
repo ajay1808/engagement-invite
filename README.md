@@ -1,5 +1,7 @@
 # Engagement Invite
 
+Live at **https://shreya-ajay.pages.dev** (Cloudflare Pages) and **https://ajay1808.github.io/engagement-invite/** (GitHub Pages). Both update automatically whenever this repository changes.
+
 Opens on a "You're invited" page with the logo, then scrolls through three pages: blessings (Ganesha) → Nichayathartham, Shreya & Ajay (courtyard) → date, time and venue.
 
 ## Update a page
