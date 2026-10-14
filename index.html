@@ -538,7 +538,7 @@ const BUTTONS = [
 ];
 
 /* Background music: put the audio file in this folder as music.mp3 to switch it on.
-   Until the file exists, the speaker button and the credit line stay hidden.
+   If the file is missing, the speaker button and the credit line hide themselves.
    It's always played from the GitHub Pages copy: GitHub supports the partial downloads
    ("range requests") that iPhones need for audio and for starting at 0:08; Cloudflare Pages
    doesn't. GitHub allows other sites to use it, so this works from shreya-ajay.pages.dev too. */
@@ -690,7 +690,9 @@ const MUSIC = {
     if (!wantMusic || !music.paused) return;
     playMusic();
   };
-  const firstTapEvents = ['click', 'touchend', 'keydown'];
+  // touchstart lets phones (iPhones especially) start the music as the very first swipe begins;
+  // where a browser doesn't count it, the touchend / tap that follows does
+  const firstTapEvents = ['touchstart', 'touchend', 'pointerup', 'click', 'keydown'];
   music.addEventListener('playing', () => firstTapEvents.forEach(t => document.removeEventListener(t, onFirstTap, true)), { once: true });
   // begin at the chosen start point (the #t= in the file link isn't honoured everywhere)
   const toStart = () => { if (music.currentTime < MUSIC.start - 0.5) music.currentTime = MUSIC.start; };
@@ -721,8 +723,14 @@ const MUSIC = {
   addEventListener('blur', away);
   addEventListener('pagehide', away);
   addEventListener('focus', back);
-  // Never start in the background (e.g. from lock-screen or notification media controls)
-  music.addEventListener('play', () => { if (document.hidden) away(); });
+  // Never start in the background (e.g. from lock-screen or notification media controls).
+  // A play the guest just caused with a tap or swipe is always allowed: phones can briefly report
+  // the page as hidden right as it opens, and blocking that made the first swipe do nothing.
+  let lastGesture = 0;
+  ['touchstart', 'touchend', 'pointerup', 'click', 'keydown'].forEach(t =>
+    document.addEventListener(t, () => { lastGesture = performance.now(); }, { capture: true, passive: true }));
+  const guestJustActed = () => (navigator.userActivation && navigator.userActivation.isActive) || performance.now() - lastGesture < 1500;
+  music.addEventListener('play', () => { if (document.hidden && !guestJustActed()) away(); });
   if ('mediaSession' in navigator) {
     try {
       navigator.mediaSession.setActionHandler('play', () => { if (!document.hidden) { wantMusic = true; playMusic(); } });
@@ -731,21 +739,28 @@ const MUSIC = {
       });
     } catch (e) {}
   }
-  // Only show the button (and the credit) once the music file is actually there
-  fetch(MUSIC.src, { method: 'HEAD' }).then(r => {
-    if (!r.ok) return;
-    music.src = `${MUSIC.src}#t=${MUSIC.start}`;     // media fragment: start playback at MUSIC.start
-    soundBtn.hidden = false;
-    if (wantMusic) {
-      soundBtn.classList.add('invite');
-      firstTapEvents.forEach(t => document.addEventListener(t, onFirstTap, true));
-    }
-    const credit = document.querySelector('.credit');
-    credit.textContent = MUSIC.credit;
-    credit.href = MUSIC.creditUrl;
-    credit.hidden = false;
-    credit.closest('.slide').classList.add('has-credit');
-  }).catch(() => {});
+  // Ready straight away, so the guest's very first tap or swipe starts the music
+  // (waiting for a network check first meant early swipes were missed)
+  const credit = document.querySelector('.credit');
+  music.src = `${MUSIC.src}#t=${MUSIC.start}`;       // media fragment: start playback at MUSIC.start
+  soundBtn.hidden = false;
+  credit.textContent = MUSIC.credit;
+  credit.href = MUSIC.creditUrl;
+  credit.hidden = false;
+  credit.closest('.slide').classList.add('has-credit');
+  if (wantMusic) {
+    soundBtn.classList.add('invite');
+    firstTapEvents.forEach(t => document.addEventListener(t, onFirstTap, true));
+  }
+  // If the music file turns out to be missing, quietly hide the button and credit again
+  const noMusic = () => {
+    soundBtn.hidden = true;
+    credit.hidden = true;
+    credit.closest('.slide').classList.remove('has-credit');
+    firstTapEvents.forEach(t => document.removeEventListener(t, onFirstTap, true));
+  };
+  music.addEventListener('error', noMusic);
+  fetch(MUSIC.src, { method: 'HEAD' }).then(r => { if (!r.ok) noMusic(); }).catch(() => {});
 
   /* Opening page: fade the logo in once loaded; tap it to move on */
   const intro = slides[0];
