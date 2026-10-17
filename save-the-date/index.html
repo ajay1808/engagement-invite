@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Shreya &amp; Ajay · Save the Date</title>
+  <meta name="description" content="Monday, 5th July 2027 · Stroudsburg, PA">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#8DC3DD">
+  <link rel="canonical" href="https://shreya-ajay.pages.dev/save-the-date/">
+
+  <!-- WhatsApp / social link preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://shreya-ajay.pages.dev/save-the-date/">
+  <meta property="og:title" content="Shreya &amp; Ajay · Save the Date">
+  <meta property="og:description" content="Monday, 5th July 2027 · Stroudsburg, PA · Tap to open">
+  <meta property="og:image" content="https://shreya-ajay.pages.dev/save-the-date/media/og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Two painted parrots on a flowering vine under pink wisteria, with Shreya &amp; Ajay written in gold">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Arima:wght@400;500;600;700&family=Great+Vibes&display=swap">
+  <link rel="preload" as="image" href="media/poster.jpg">
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+<main>
+
+  <!-- 1 · The save-the-date film -->
+  <section class="stage" id="stage" aria-label="Save the date">
+    <img class="stage__backdrop" src="media/poster.jpg" alt="">
+    <div class="stage__frame">
+      <video class="film" id="film" playsinline preload="metadata" poster="media/poster.jpg"
+             src="video/save-the-date.mp4"
+             aria-label="Save the date film: Shreya and Ajay, Monday 5th July 2027, Stroudsburg, Pennsylvania. Formal invite to follow."></video>
+
+      <button class="opener" id="opener" type="button" aria-label="Open the save the date (plays with sound)">
+        <svg class="envelope" viewBox="0 0 120 84" aria-hidden="true">
+          <rect x="2" y="2" width="116" height="80" rx="6" fill="#FBEFD3" stroke="#6B4A2E" stroke-width="2.5"/>
+          <path d="M5 79 47 46M115 79 73 46" fill="none" stroke="#6B4A2E" stroke-width="2" stroke-linecap="round" opacity=".5"/>
+          <path class="envelope__flap" d="M3.5 5.5 60 50 116.5 5.5" fill="#F6E4BC" stroke="#6B4A2E" stroke-width="2.5" stroke-linejoin="round"/>
+          <path class="envelope__heart" d="M60 60c-9.5-6.6-11.6-12-8.6-15.3 2.6-2.8 6.8-2 8.6 1.4 1.8-3.4 6-4.2 8.6-1.4 3 3.3.9 8.7-8.6 15.3z" fill="#D2283C" stroke="#8A1626" stroke-width="1.2"/>
+        </svg>
+        <span class="opener__label">Tap to open</span>
+        <span class="opener__hint">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          Sound on
+        </span>
+      </button>
+
+      <div class="spinner" aria-hidden="true"></div>
+
+      <div class="film-controls">
+        <button class="round-btn replay" id="replay" type="button" aria-label="Watch again">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.3-5.7M4 4v4.5h4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="round-btn" id="sound" type="button" aria-label="Mute" aria-pressed="false">
+          <svg class="icon-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          <svg class="icon-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="m16 9 6 6m0-6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Below the film, so it never covers the painting -->
+    <div class="stage__bar">
+      <a class="cue" id="cue" href="#reply">
+        <span>Kindly reply</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- 2 · The reply scroll -->
+  <section class="reply" id="reply" aria-labelledby="reply-title">
+    <div class="reply__bg" aria-hidden="true"></div>
+    <canvas class="petals" aria-hidden="true"></canvas>
+
+    <p class="names" aria-hidden="true">Shreya <span>&amp;</span> Ajay</p>
+
+    <div class="scroll" id="scroll">
+      <div class="scroll__rod" aria-hidden="true"></div>
+      <div class="scroll__body">
+        <div class="scroll__paper">
+
+          <!-- Form -->
+          <div class="view" id="form-view">
+            <h1 class="script title" id="reply-title">Kindly reply</h1>
+            <p class="when"><strong>Monday, 5th July 2027</strong><br>Stroudsburg, Pennsylvania</p>
+            <svg class="flourish" viewBox="0 0 240 20" aria-hidden="true">
+              <path d="M14 10h82m48 0h82" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
+              <path d="M96 10c5-5 10-5.5 13-1.5M144 10c-5-5-10-5.5-13-1.5" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
+              <g transform="translate(120 10)" fill="currentColor">
+                <path d="M0-8c2.6 2.6 2.6 5.2 0 7-2.6-1.8-2.6-4.4 0-7zM0 8c2.6-2.6 2.6-5.2 0-7-2.6 1.8-2.6 4.4 0 7zM-8 0c2.6-2.6 5.2-2.6 7 0-1.8 2.6-4.4 2.6-7 0zM8 0c-2.6-2.6-5.2-2.6-7 0 1.8 2.6 4.4 2.6 7 0z" opacity=".85"/>
+                <circle r="1.4"/>
+              </g>
+              <circle cx="10" cy="10" r="1.6" fill="currentColor"/><circle cx="230" cy="10" r="1.6" fill="currentColor"/>
+            </svg>
+            <p class="intro">Let us know if you can join us. The formal invite will follow.</p>
+
+            <form id="rsvp" novalidate>
+              <div class="field">
+                <label for="name">Your name</label>
+                <input id="name" name="name" autocomplete="name" autocapitalize="words" maxlength="80" required enterkeyhint="next" aria-describedby="name-error">
+                <p class="field__error" id="name-error"></p>
+              </div>
+
+              <div class="field">
+                <label for="phone">Phone <span class="label-note">· WhatsApp</span></label>
+                <div class="phone">
+                  <div class="cc">
+                    <span class="cc__shown" id="cc-shown" aria-hidden="true">+91</span>
+                    <select id="cc" name="cc" aria-label="Country code"></select>
+                  </div>
+                  <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel-national" maxlength="20" required enterkeyhint="next" aria-describedby="phone-error">
+                </div>
+                <p class="field__error" id="phone-error"></p>
+              </div>
+
+              <div class="field">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" maxlength="254" required enterkeyhint="done" aria-describedby="email-error">
+                <p class="field__error" id="email-error"></p>
+              </div>
+
+              <fieldset class="field choices" aria-describedby="attending-error">
+                <legend>Will you be able to join us?</legend>
+                <label class="choice">
+                  <input type="radio" name="attending" value="yes" required>
+                  <svg class="choice__art" viewBox="0 0 40 40" aria-hidden="true">
+                    <path d="M8.5 33.5c3.6 1.4 7.4 2 11.5 2s7.9-.6 11.5-2" fill="none" stroke="#4E9A3A" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M6 15c5.8.6 10 3.6 12.3 8.6 1.6 3.6 1.4 6.6.8 7.6-3.6.3-7.8-1.6-10.5-5.6C7 23.1 5.9 19.2 6 15z" fill="#F29BBB" stroke="#9C2457" stroke-width="1.1"/>
+                    <path d="M34 15c-5.8.6-10 3.6-12.3 8.6-1.6 3.6-1.4 6.6-.8 7.6 3.6.3 7.8-1.6 10.5-5.6C33 23.1 34.1 19.2 34 15z" fill="#F29BBB" stroke="#9C2457" stroke-width="1.1"/>
+                    <path d="M20 5c3.8 5 5.6 10 5.6 15.2S23.5 29 20 31.2c-3.5-2.2-5.6-5.8-5.6-11S16.2 10 20 5z" fill="#EC6A9A" stroke="#9C2457" stroke-width="1.1"/>
+                    <path d="M20 12v16" stroke="#9C2457" stroke-width=".8" opacity=".5"/>
+                  </svg>
+                  <span class="choice__text"><b>Yes</b>, I'll be there</span>
+                  <span class="choice__tick" aria-hidden="true"></span>
+                </label>
+                <label class="choice">
+                  <input type="radio" name="attending" value="maybe">
+                  <svg class="choice__art" viewBox="0 0 40 40" aria-hidden="true">
+                    <path d="M20 31v6" stroke="#4E9A3A" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M20 6c4.6 5 6.8 10 6.8 15 0 4.8-2.8 8.6-6.8 9.8-4-1.2-6.8-5-6.8-9.8 0-5 2.2-10 6.8-15z" fill="#F29BBB" stroke="#9C2457" stroke-width="1.1"/>
+                    <path d="M20 31c-3.4-.4-6.6-2.4-8.4-5.6 3.4-.6 6.6.4 8.4 2.4 1.8-2 5-3 8.4-2.4-1.8 3.2-5 5.2-8.4 5.6z" fill="#6DB24E" stroke="#3F7D2E" stroke-width="1"/>
+                  </svg>
+                  <span class="choice__text"><b>Hoping to</b> <small>Not sure yet</small></span>
+                  <span class="choice__tick" aria-hidden="true"></span>
+                </label>
+                <label class="choice">
+                  <input type="radio" name="attending" value="no">
+                  <svg class="choice__art" viewBox="0 0 40 40" aria-hidden="true">
+                    <g transform="rotate(-24 20 20)">
+                      <path d="M20 6c5.2 4 8 9 8 14.2 0 5.6-3.4 9.4-8 10.8-4.6-1.4-8-5.2-8-10.8C12 15 14.8 10 20 6z" fill="#F6B3CB" stroke="#9C2457" stroke-width="1.1"/>
+                      <path d="M20 11v18" stroke="#9C2457" stroke-width=".8" opacity=".5"/>
+                    </g>
+                  </svg>
+                  <span class="choice__text"><b>Sorry</b>, I can't make it</span>
+                  <span class="choice__tick" aria-hidden="true"></span>
+                </label>
+                <p class="field__error" id="attending-error"></p>
+              </fieldset>
+
+              <div class="reveal" id="guests-reveal" inert>
+                <div class="reveal__inner">
+                  <div class="field guests">
+                    <label for="guests">Total guests, including you</label>
+                    <div class="count">
+                      <button class="step" type="button" data-step="-1" aria-label="One fewer guest">−</button>
+                      <output class="count__out" for="guests" id="guests-out" aria-live="polite">
+                        <span class="count__num" id="guests-num">1</span>
+                        <span class="count__unit" id="guests-unit">just me</span>
+                      </output>
+                      <button class="step" type="button" data-step="1" aria-label="One more guest">+</button>
+                    </div>
+                    <input class="range" id="guests" name="guests" type="range" min="1" max="10" step="1" value="1" aria-valuetext="Just me" aria-describedby="guests-error">
+                    <div class="ticks" aria-hidden="true"></div>
+                    <p class="field__error" id="guests-error"></p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Leave empty: catches spam bots -->
+              <div class="hp" aria-hidden="true">
+                <label for="website">Website</label>
+                <input id="website" name="website" tabindex="-1" autocomplete="off">
+              </div>
+
+              <div class="turnstile" id="turnstile-box"></div>
+              <p class="form-error" id="form-error" role="alert"></p>
+
+              <button class="send" id="send" type="submit">
+                <svg class="send__seal" viewBox="0 0 48 48" aria-hidden="true">
+                  <path d="M24 2.5l3.3 2.6 4.1-.9 2 3.7 4.1.9.3 4.2 3.4 2.5-1.3 4 2 3.7-2.9 3.1.3 4.2-3.8 1.8-1 4.1-4.2.3-2.4 3.4-3.9-1.5-3.9 1.5-2.4-3.4-4.2-.3-1-4.1-3.8-1.8.3-4.2-2.9-3.1 2-3.7-1.3-4 3.4-2.5.3-4.2 4.1-.9 2-3.7 4.1.9z" fill="#B32233" stroke="#7E1220" stroke-width="1"/>
+                  <circle cx="24" cy="24" r="13.5" fill="none" stroke="#E9606E" stroke-width="1" opacity=".7"/>
+                  <path d="M24 31c-6.4-4.4-7.8-8-5.8-10.2 1.8-1.9 4.6-1.4 5.8.9 1.2-2.3 4-2.8 5.8-.9 2 2.2.6 5.8-5.8 10.2z" fill="#FFE3D6"/>
+                </svg>
+                <span class="send__label">Send reply</span>
+              </button>
+            </form>
+          </div>
+
+          <!-- Thank you -->
+          <div class="view thanks" id="thanks-view" hidden>
+            <svg class="thanks__art" viewBox="0 0 120 84" aria-hidden="true">
+              <rect x="2" y="2" width="116" height="80" rx="6" fill="#FBEFD3" stroke="#6B4A2E" stroke-width="2.5"/>
+              <path d="M5 79 47 46M115 79 73 46" fill="none" stroke="#6B4A2E" stroke-width="2" stroke-linecap="round" opacity=".5"/>
+              <path d="M3.5 5.5 60 50 116.5 5.5" fill="#F6E4BC" stroke="#6B4A2E" stroke-width="2.5" stroke-linejoin="round"/>
+              <path d="M60 60c-9.5-6.6-11.6-12-8.6-15.3 2.6-2.8 6.8-2 8.6 1.4 1.8-3.4 6-4.2 8.6-1.4 3 3.3.9 8.7-8.6 15.3z" fill="#D2283C" stroke="#8A1626" stroke-width="1.2"/>
+            </svg>
+            <h2 class="script title" id="thanks-title" tabindex="-1">Thank you!</h2>
+            <p class="thanks__msg" id="thanks-msg"></p>
+            <p class="summary" id="thanks-summary"></p>
+
+            <div class="calendar" id="calendar">
+              <p class="calendar__label">Add the date to your calendar</p>
+              <div class="calendar__links">
+                <a class="pill" id="cal-google" target="_blank" rel="noopener"
+                   href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Shreya%20%26%20Ajay%27s%20wedding&amp;dates=20270705/20270706&amp;location=Stroudsburg%2C%20PA&amp;details=Formal%20invite%20to%20follow.%20https%3A%2F%2Fshreya-ajay.pages.dev%2Fsave-the-date%2F">Google</a>
+                <a class="pill" href="wedding.ics" download="shreya-ajay-wedding.ics">Apple / Outlook</a>
+              </div>
+            </div>
+
+            <svg class="flourish" viewBox="0 0 240 20" aria-hidden="true">
+              <path d="M14 10h82m48 0h82" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
+              <g transform="translate(120 10)" fill="currentColor">
+                <path d="M0-8c2.6 2.6 2.6 5.2 0 7-2.6-1.8-2.6-4.4 0-7zM0 8c2.6-2.6 2.6-5.2 0-7-2.6 1.8-2.6 4.4 0 7zM-8 0c2.6-2.6 5.2-2.6 7 0-1.8 2.6-4.4 2.6-7 0zM8 0c-2.6-2.6-5.2-2.6-7 0 1.8 2.6 4.4 2.6 7 0z" opacity=".85"/>
+                <circle r="1.4"/>
+              </g>
+            </svg>
+            <p class="formal">Formal invite to follow</p>
+
+            <div class="thanks__actions">
+              <button class="text-btn" id="change" type="button">Change my reply</button>
+              <button class="text-btn" id="another" type="button">Reply for someone else</button>
+            </div>
+          </div>
+
+          <noscript><p class="intro">Please turn on JavaScript to send your reply.</p></noscript>
+        </div>
+      </div>
+      <div class="scroll__rod" aria-hidden="true"></div>
+    </div>
+
+    <p class="status" id="status" role="status" aria-live="polite"></p>
+  </section>
+</main>
+
+<!-- The envelope that flies off when a reply is sent -->
+<div class="flight" id="flight" aria-hidden="true">
+  <svg viewBox="0 0 120 84">
+    <rect x="2" y="2" width="116" height="80" rx="6" fill="#FBEFD3" stroke="#6B4A2E" stroke-width="2.5"/>
+    <path d="M5 79 47 46M115 79 73 46" fill="none" stroke="#6B4A2E" stroke-width="2" stroke-linecap="round" opacity=".5"/>
+    <path class="flight__flap" d="M3.5 5.5 60 50 116.5 5.5" fill="#F6E4BC" stroke="#6B4A2E" stroke-width="2.5" stroke-linejoin="round"/>
+    <path class="flight__heart" d="M60 60c-9.5-6.6-11.6-12-8.6-15.3 2.6-2.8 6.8-2 8.6 1.4 1.8-3.4 6-4.2 8.6-1.4 3 3.3.9 8.7-8.6 15.3z" fill="#D2283C" stroke="#8A1626" stroke-width="1.2"/>
+  </svg>
+</div>
+</body>
+</html>

@@ -1,0 +1,18 @@
+# Cloudflare Pages settings for shreya-ajay.pages.dev.
+# The engagement invite is plain static files and doesn't use any of this;
+# only the save-the-date reply form (save-the-date/ + functions/) does.
+name = "shreya-ajay"
+pages_build_output_dir = "."
+compatibility_date = "2026-09-01"
+
+# Where save-the-date replies are stored (Cloudflare D1, a SQLite database).
+[[d1_databases]]
+binding = "DB"
+database_name = "shreya-ajay-rsvp"
+database_id = "00000000-0000-0000-0000-000000000000" # replace with the id from `wrangler d1 create`
+migrations_dir = "migrations"
+
+[vars]
+# Cloudflare Turnstile (spam check). Leave empty to turn it off.
+# The matching secret is set separately: TURNSTILE_SECRET.
+TURNSTILE_SITE_KEY = ""

@@ -65,3 +65,51 @@ The details page text (date, time, address) is in `pdf-build/invite-pdf.html`.
 | `invite.pdf` | Downloadable offline copy of the invite (see above) |
 | `border.png` | Decorative border shown over every page |
 | `og-image.jpg` | WhatsApp/iMessage preview image |
+
+---
+
+# Save the date (wedding, 5 July 2027)
+
+Live at **https://shreya-ajay.pages.dev/save-the-date/**. The page plays the save-the-date film, then a parchment scroll asks five questions (name, WhatsApp number, email, joining?, total guests). Replies are saved in a Cloudflare D1 database. The engagement invite above doesn't use any of this.
+
+The full write-up (architecture, decisions, setup) is in the wedding-invite repository: `save-the-date/README.md`.
+
+## Files
+
+| File / folder | What it is |
+|---|---|
+| `save-the-date/index.html`, `style.css`, `app.js` | The page |
+| `save-the-date/media/` | The film (web copy), its first and last frames, and the WhatsApp preview image |
+| `save-the-date/wedding.ics` | "Add to calendar" file for Apple / Outlook |
+| `save-the-date/admin/` | The private replies page |
+| `functions/` | The backend (Cloudflare Pages Functions): saving replies, the password gate, CSV export, and serving the film in pieces (iPhones need that, and Cloudflare's static hosting doesn't do it) |
+| `migrations/` | The database table |
+| `wrangler.toml` | Cloudflare settings: the database link and the spam-check key |
+| `_headers` | Security headers for the save-the-date pages only |
+
+## Seeing replies
+
+Open **https://shreya-ajay.pages.dev/save-the-date/admin/** and enter the admin password (any username). It shows totals, every reply, numbers that appear twice, and a **Download CSV** button (Google Sheets: File → Import → Upload).
+
+Change the password:
+
+```
+npx wrangler@4.151.1 pages secret put ADMIN_PASSWORD --project-name shreya-ajay
+```
+
+## Making changes safely
+
+1. Work on a branch, not `main`. Cloudflare builds every branch at its own preview address, e.g. `https://save-the-date.shreya-ajay.pages.dev/save-the-date/`. (Previews save into the same database, so delete test replies afterwards from the replies page.)
+2. Check it on a real iPhone and Android phone, including the WhatsApp preview.
+3. Merge into `main`. Both live links update in a minute or two.
+
+**Only publish by pushing to GitHub.** Never run `wrangler pages deploy` from this folder: it would upload local-only files such as `.dev.vars` (the local test password) and `.wrangler/` (the local test database).
+
+## Trying it on this Mac
+
+```
+npx wrangler@4.151.1 d1 migrations apply DB --local
+npx wrangler@4.151.1 pages dev . --port 8788
+```
+
+Then open http://127.0.0.1:8788/save-the-date/. Local settings go in `.dev.vars` (never committed): `ADMIN_PASSWORD=…`, and optionally Cloudflare's public Turnstile test keys `TURNSTILE_SITE_KEY=1x00000000000000000000AA` and `TURNSTILE_SECRET=1x0000000000000000000000000000000AA`.

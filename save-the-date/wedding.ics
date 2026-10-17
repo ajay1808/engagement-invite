@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Shreya & Ajay//Save the Date//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:save-the-date-20270705@shreya-ajay.pages.dev
+DTSTAMP:20261017T000000Z
+DTSTART;VALUE=DATE:20270705
+DTEND;VALUE=DATE:20270706
+SUMMARY:Shreya & Ajay's wedding
+LOCATION:Stroudsburg\, PA
+DESCRIPTION:Save the date! Formal invite to follow.\nhttps://shreya-ajay.pages.dev/save-the-date/
+URL:https://shreya-ajay.pages.dev/save-the-date/
+TRANSP:TRANSPARENT
+END:VEVENT
+END:VCALENDAR

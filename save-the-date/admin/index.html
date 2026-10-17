@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Replies · Shreya &amp; Ajay</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Arima:wght@400;500;600;700&family=Great+Vibes&display=swap">
+  <link rel="stylesheet" href="admin.css">
+  <script type="module" src="admin.js"></script>
+</head>
+<body>
+  <header class="top">
+    <div>
+      <p class="names">Shreya &amp; Ajay</p>
+      <h1>Save-the-date replies</h1>
+    </div>
+    <div class="top__actions">
+      <button class="btn" id="refresh" type="button">Refresh</button>
+      <a class="btn btn--primary" href="api/export" download>Download CSV</a>
+    </div>
+  </header>
+
+  <section class="stats" aria-label="Totals">
+    <div class="stat stat--yes"><span class="stat__num" id="s-yes">–</span><span class="stat__label">Guests coming</span></div>
+    <div class="stat stat--maybe"><span class="stat__num" id="s-maybe">–</span><span class="stat__label">Guests hoping to</span></div>
+    <div class="stat stat--total"><span class="stat__num" id="s-likely">–</span><span class="stat__label">Likely total</span></div>
+    <div class="stat stat--no"><span class="stat__num" id="s-no">–</span><span class="stat__label">Can't make it</span></div>
+    <div class="stat"><span class="stat__num" id="s-replies">–</span><span class="stat__label">Replies</span></div>
+  </section>
+
+  <section class="list">
+    <div class="toolbar">
+      <input id="search" type="search" placeholder="Search name, phone or email" aria-label="Search replies" autocomplete="off">
+      <div class="filters" role="group" aria-label="Show">
+        <button type="button" data-filter="all" aria-pressed="true">All</button>
+        <button type="button" data-filter="yes" aria-pressed="false">Coming</button>
+        <button type="button" data-filter="maybe" aria-pressed="false">Hoping to</button>
+        <button type="button" data-filter="no" aria-pressed="false">Can't</button>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Reply</th>
+          <th scope="col" class="num">Guests</th>
+          <th scope="col">Phone</th>
+          <th scope="col">Email</th>
+          <th scope="col">Replied</th>
+          <th scope="col"><span class="sr">Remove</span></th>
+        </tr>
+      </thead>
+      <tbody id="rows"></tbody>
+    </table>
+    <p class="empty" id="empty" hidden>No replies yet.</p>
+    <p class="note">Rows marked <span class="dup">same phone</span> share a phone number with another reply, so one may be a duplicate.</p>
+  </section>
+</body>
+</html>
