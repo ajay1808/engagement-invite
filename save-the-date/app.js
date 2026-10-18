@@ -85,7 +85,7 @@ function setupFilm() {
     film.muted = false;
     film.play().catch(() => {
       film.muted = true;
-      film.play().catch(() => stage.classList.add('is-ended'));
+      film.play().catch(() => stage.classList.add('has-played'));
     }).finally(syncSound);
     stage.classList.add('is-open');
     setTimeout(() => { opener.hidden = true; }, reduceMotion ? 0 : 900);
@@ -98,30 +98,34 @@ function setupFilm() {
 
   film.addEventListener('click', () => {
     if (!stage.classList.contains('is-open')) return;
-    if (film.ended) return;
     film.paused ? film.play() : film.pause();
   });
 
   film.addEventListener('waiting', () => stage.classList.add('is-buffering'));
-  film.addEventListener('playing', () => {
-    stage.classList.remove('is-buffering', 'is-ended');
+  film.addEventListener('playing', () => stage.classList.remove('is-buffering'));
+
+  // The film and its song loop until the guest moves on to the reply (see the pause below).
+  // Each time round, hold the last frame and fade into the restart instead of jumping.
+  const loopFade = $('#loop-fade');
+  film.addEventListener('ended', () => {
+    stage.classList.add('has-played');
+    loopFade.classList.add('is-on');
+    film.currentTime = 0;
+    film.play()
+      .then(() => requestAnimationFrame(() => loopFade.classList.remove('is-on')))
+      .catch(() => {}); // if the phone refuses, the last frame (with the date) stays up
   });
-  film.addEventListener('ended', () => stage.classList.add('is-ended'));
+
   film.addEventListener('error', () => {
     // If the film can't load, show its last frame (it carries the date) and the reply link.
     film.poster = 'media/end.jpg';
     stage.classList.remove('is-buffering');
-    stage.classList.add('is-open', 'is-ended');
+    stage.classList.add('is-open', 'has-played');
     opener.hidden = true;
   });
 
-  $('#replay').addEventListener('click', () => {
-    stage.classList.remove('is-ended');
-    film.currentTime = 0;
-    film.play().catch(() => {});
-  });
-
-  // Pause while the film is scrolled away or the page is in the background.
+  // Pause while the film is scrolled away (the guest has moved on to the reply)
+  // or the page is in the background; carry on if they come back.
   const pauseFor = () => {
     if (!film.paused && !film.ended) {
       film.pause();

@@ -38,6 +38,10 @@
       <video class="film" id="film" playsinline preload="metadata" poster="media/poster.jpg"
              src="video/save-the-date.mp4"
              aria-label="Save the date film: Shreya and Ajay, Monday 5th July 2027, Stroudsburg, Pennsylvania. Formal invite to follow."></video>
+      <!-- Covers the jump when the film loops back to the start -->
+      <img class="loop-fade" id="loop-fade" src="media/end.jpg" alt="">
+      <!-- The blurred painting behind the envelope; it clears when the envelope is tapped -->
+      <img class="veil" src="media/poster.jpg" alt="">
 
       <button class="opener" id="opener" type="button" aria-label="Open the save the date (plays with sound)">
         <svg class="envelope" viewBox="0 0 120 84" aria-hidden="true">
@@ -56,9 +60,6 @@
       <div class="spinner" aria-hidden="true"></div>
 
       <div class="film-controls">
-        <button class="round-btn replay" id="replay" type="button" aria-label="Watch again">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.3-5.7M4 4v4.5h4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
         <button class="round-btn" id="sound" type="button" aria-label="Mute" aria-pressed="false">
           <svg class="icon-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
           <svg class="icon-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="m16 9 6 6m0-6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
