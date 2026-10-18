@@ -322,15 +322,75 @@ button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
   pointer-events: none;
 }
 
-.names {
-  margin: 0 0 18px;
-  font: 400 clamp(46px, 13vw, 64px)/1 var(--script);
+/* Interlude: a pause between the film and the scroll with the couple's monogram
+   (the SA logo from the engagement invite). No CSS filters on the logo: iPhones
+   drew the engagement logo as a white box when it had a blur/shadow effect. */
+.interlude {
+  min-height: 74vh;
+  min-height: 74svh;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 4px;
+  text-align: center;
+  margin-bottom: 8px;
+}
+.interlude__mono {
+  position: relative;
+  width: min(64vw, 250px);
+  height: auto;
+}
+.interlude::before {
+  /* soft light behind the logo so it reads on the blurred painting */
+  content: '';
+  grid-area: 1 / 1;
+  width: min(92vw, 340px);
+  aspect-ratio: 1.15;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(255, 246, 220, 0.55), rgba(255, 246, 220, 0));
+}
+.interlude__mono { grid-area: 1 / 1; }
+.interlude__names {
+  margin: 6px 0 0;
+  font: 400 clamp(46px, 13vw, 58px)/1 var(--script);
   color: var(--gold);
   text-shadow:
     0 1px 0 #b8872a,
     0 2px 10px rgba(60, 40, 10, 0.35);
 }
-.names span { font-size: 0.8em; padding: 0 0.05em; }
+.interlude__names span { font-size: 0.8em; padding: 0 0.05em; }
+.interlude__date {
+  margin: 12px 0 0;
+  font: 700 13px/1 var(--serif);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #fff8e6;
+  text-shadow: 0 1px 6px rgba(40, 20, 10, 0.55);
+}
+.interlude__hint {
+  margin-top: 22px;
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: #fff8e6;
+  text-shadow: 0 1px 6px rgba(40, 20, 10, 0.5);
+}
+.interlude__hint svg { width: 28px; height: 28px; animation: nudge 1.8s ease-in-out infinite; }
+.interlude__hint:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+
+/* Blooms in when it comes into view */
+.interlude.will-reveal > * { opacity: 0; transform: translateY(14px); }
+.interlude.will-reveal .interlude__mono { transform: scale(0.85); }
+.interlude.will-reveal.is-in > * {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.9s ease, transform 1.2s var(--spring);
+}
+.interlude.will-reveal.is-in .interlude__names { transition-delay: 0.25s; }
+.interlude.will-reveal.is-in .interlude__date { transition-delay: 0.45s; }
+.interlude.will-reveal.is-in .interlude__hint { transition-delay: 0.7s; }
 
 .scroll {
   width: min(100%, 448px);
@@ -730,11 +790,11 @@ input:-webkit-autofill {
 .send[aria-busy='true'] .send__seal { animation: spin 1.4s linear infinite; }
 
 /* Thank you */
-.thanks__art {
-  width: 104px;
-  margin: 4px auto 8px;
+.thanks__mono {
   display: block;
-  filter: drop-shadow(0 8px 10px rgba(60, 30, 10, 0.25));
+  width: 150px;
+  height: auto;
+  margin: -4px auto 0;
 }
 .thanks .title:focus { outline: none; }
 .thanks__msg { margin: 6px auto 0; max-width: 30ch; font-size: 17px; }

@@ -530,6 +530,22 @@ function setupUnroll() {
   io.observe(scroll);
 }
 
+/* ───────────── The monogram interlude blooms into view ───────────── */
+
+function setupInterlude() {
+  const interlude = $('.interlude');
+  if (reduceMotion || !('IntersectionObserver' in window)) return;
+  if (interlude.getBoundingClientRect().top < innerHeight * 0.8) return; // already on screen
+  interlude.classList.add('will-reveal');
+  const io = new IntersectionObserver(([entry]) => {
+    if (entry.isIntersecting) {
+      interlude.classList.add('is-in');
+      io.disconnect();
+    }
+  }, { rootMargin: '0px 0px -25% 0px' });
+  io.observe(interlude);
+}
+
 /* ───────────── Falling wisteria petals ───────────── */
 
 function setupPetals() {
@@ -608,4 +624,5 @@ function setupPetals() {
 setupFilm();
 setupForm();
 setupUnroll();
+setupInterlude();
 setupPetals();

@@ -81,7 +81,15 @@
     <div class="reply__bg" aria-hidden="true"></div>
     <canvas class="petals" aria-hidden="true"></canvas>
 
-    <p class="names" aria-hidden="true">Shreya <span>&amp;</span> Ajay</p>
+    <!-- Interlude between the film and the scroll: the couple's monogram -->
+    <div class="interlude">
+      <img class="interlude__mono" src="media/monogram.png" width="480" height="447" alt="Shreya and Ajay's monogram" loading="lazy" decoding="async">
+      <p class="interlude__names" aria-hidden="true">Shreya <span>&amp;</span> Ajay</p>
+      <p class="interlude__date" aria-hidden="true">5 · July · 2027</p>
+      <a class="interlude__hint" href="#scroll" aria-label="Go to the reply form">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
 
     <div class="scroll" id="scroll">
       <div class="scroll__rod" aria-hidden="true"></div>
@@ -207,12 +215,7 @@
 
           <!-- Thank you -->
           <div class="view thanks" id="thanks-view" hidden>
-            <svg class="thanks__art" viewBox="0 0 120 84" aria-hidden="true">
-              <rect x="2" y="2" width="116" height="80" rx="6" fill="#FBEFD3" stroke="#6B4A2E" stroke-width="2.5"/>
-              <path d="M5 79 47 46M115 79 73 46" fill="none" stroke="#6B4A2E" stroke-width="2" stroke-linecap="round" opacity=".5"/>
-              <path d="M3.5 5.5 60 50 116.5 5.5" fill="#F6E4BC" stroke="#6B4A2E" stroke-width="2.5" stroke-linejoin="round"/>
-              <path d="M60 60c-9.5-6.6-11.6-12-8.6-15.3 2.6-2.8 6.8-2 8.6 1.4 1.8-3.4 6-4.2 8.6-1.4 3 3.3.9 8.7-8.6 15.3z" fill="#D2283C" stroke="#8A1626" stroke-width="1.2"/>
-            </svg>
+            <img class="thanks__mono" src="media/monogram.png" width="480" height="447" alt="" loading="lazy" decoding="async">
             <h2 class="script title" id="thanks-title" tabindex="-1">Thank you!</h2>
             <p class="thanks__msg" id="thanks-msg"></p>
             <p class="summary" id="thanks-summary"></p>
